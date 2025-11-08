@@ -1,23 +1,16 @@
-const cloudinary = require('cloudinary').v2;
-const {CloudinaryStorage} = require("multer-storage-cloudinary");
+const multer = require('multer');
+const path = require('path');
 
-cloudinary.config({
-    cloud_name : process.env.CLOUD_NAME,
-    api_key : process.env.CLOUD_API_KEY,
-    api_secret : process.env.CLOUD_API_SECRET,
-
-});
-
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: 'wanderlust_DEV',
-      allowedFormat: ["png" , "jpg" , "jpeg"],
+// Use only local storage for images
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/')  // Make sure this directory exists
     },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
 });
-
 
 module.exports = {
-    cloudinary ,
-    storage,
-}
+    storage: storage,
+};

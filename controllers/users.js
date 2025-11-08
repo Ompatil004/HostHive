@@ -17,7 +17,7 @@ module.exports.signup =  async (req, res) => {
           next(err);
         }
         
-        req.flash("success", "Welcome to Wanderlust !");
+        req.flash("success", "Welcome to HostHive !");
         res.redirect("/listings");
       })
     } catch (e) {
@@ -32,7 +32,7 @@ module.exports.renderLoginForm = (req, res) => {
 
 //Login
 module.exports.login = async (req, res) => {
-  req.flash("success" , "Welcome back to Wanderlust!");
+  req.flash("success" , "Welcome back to HostHive!");
   let redirectUrl = res.locals.redirectUrl || "/listings";
   res.redirect(redirectUrl);
 };
