@@ -48,22 +48,14 @@ module.exports.createListing = async (req, res, next) => {
     let newlisting = new Listing(req.body.listing);
     console.log(req.user);
     newlisting.owner = req.user._id;
-    
+
     // Handle image upload
     if (req.file) {
-        // When using local storage, the path is relative to the public directory
-        // So if file is saved to public/uploads/filename.jpg, the web URL should be /uploads/filename.jpg
-        let originalPath = req.file.path;
-        // Convert path to web-accessible URL by removing 'public/' from the beginning if present
-        let webPath = originalPath;
-        if (originalPath.startsWith('public/')) {
-            webPath = originalPath.substring(6); // Remove 'public/' prefix
-        }
-        
-        // For web access, we need to make sure the URL is relative to public directory
-        let url = '/' + webPath.replace(/\\/g, '/'); // Convert backslashes to forward slashes for URLs
-        let filename = req.file.filename;
-        newlisting.image = {url , filename};
+        // When using Cloudinary, req.file contains the URL and public_id
+        newlisting.image = {
+            url: req.file.path,      // Cloudinary URL
+            filename: req.file.filename // Cloudinary public_id
+        };
     } else {
         // Default image if no file is uploaded
         newlisting.image = {
@@ -110,19 +102,11 @@ module.exports.updateListing =  async (req, res) => {
 
     // Update image if provided
     if (req.file) {
-        // When using local storage, the path is relative to the public directory
-        // So if file is saved to public/uploads/filename.jpg, the web URL should be /uploads/filename.jpg
-        let originalPath = req.file.path;
-        // Convert path to web-accessible URL by removing 'public/' from the beginning if present
-        let webPath = originalPath;
-        if (originalPath.startsWith('public/')) {
-            webPath = originalPath.substring(6); // Remove 'public/' prefix
-        }
-        
-        // For web access, we need to make sure the URL is relative to public directory
-        let url = '/' + webPath.replace(/\\/g, '/'); // Convert backslashes to forward slashes for URLs
-        let filename = req.file.filename;
-        listing.image = {url , filename};
+        // When using Cloudinary, req.file contains the URL and public_id
+        listing.image = {
+            url: req.file.path,      // Cloudinary URL
+            filename: req.file.filename // Cloudinary public_id
+        };
         await listing.save();
     }
 

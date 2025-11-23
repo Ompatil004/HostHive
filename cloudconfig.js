@@ -1,13 +1,20 @@
+const cloudinary = require('cloudinary');
 const multer = require('multer');
-const path = require('path');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// Use only local storage for images
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/')  // Make sure this directory exists
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
+// Configure Cloudinary
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
+
+// Configure Cloudinary storage for multer
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary.v2,
+    params: {
+        folder: 'HostHive', // Folder name in Cloudinary
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif']
     }
 });
 
