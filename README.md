@@ -158,9 +158,6 @@ To deploy your own version:
 
 If you encounter any issues or have feature requests, please open an issue in the [GitHub repository](https://github.com/your-username/hosthive/issues).
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 
