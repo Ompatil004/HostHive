@@ -7,8 +7,7 @@ const Listing = require("../models/listing.js");
 //for get the data from other file(./data.js) to index main file
 
 const initData = require("./data.js");
-
-const MONGO_URL = "mongodb+srv://2004ompatil:PApWLtQak95FuqHO@wanderlust.clzyrf9.mongodb.net/?retryWrites=true&w=majority&appName=WanderLust";
+const MONGO_URL = process.env.ATLASDB_URL;
 
 main()
   .then(() => {

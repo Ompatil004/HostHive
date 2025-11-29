@@ -58,7 +58,7 @@ module.exports.isReviewAuthor = async(req , res , next) => {
     let review = await Review.findById(reviewId);
     
     if(!review.author._id.equals(res.locals.currUser._id)){
-        req.flash("error", "You are not authorized to delte this review!");
+        req.flash("error", "You are not authorized to delete this review!");
         return res.redirect(`/listings/${id}`);
     }
     next();
