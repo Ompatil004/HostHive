@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://host-hive-wghj.onrender.com";
 
 // Standard function to fetch from API with session credentials
 async function apiFetch(url, options = {}) {
