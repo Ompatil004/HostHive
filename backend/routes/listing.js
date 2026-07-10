@@ -9,48 +9,33 @@ const upload = multer({storage});
 
 const listingController = require("../controllers/listings.js");
 
-
-
-router.get("/filter/:id",wrapAsync(listingController.filter));
+router.get("/filter/:id", wrapAsync(listingController.filter));
 router.get("/search", wrapAsync(listingController.search));
 
 router
-  .route("/" )
+  .route("/")
   .get(wrapAsync(listingController.index))
   .post(
     isLoggedIn,
+    upload.single("listing[image]"),
     validateSchema,
-    upload.single("listing[image]") ,
     wrapAsync(listingController.createListing)
   );
 
-
-// New Route
-router.get("/new", isLoggedIn, listingController.renderNewForm);
-
 router
-.route("/:id")
-.get(wrapAsync(listingController.showListing))
-.put(
-  isLoggedIn,
-  isOwner,
-  upload.single("listing[image]") ,
-  validateSchema,
-  wrapAsync(listingController.updateListing)
-)
-.delete(
-  isLoggedIn,
-  isOwner,
-  wrapAsync(listingController.destroyListing)
-);
-
-// Edit Route
-router.get(
-  "/:id/edit",
-  isLoggedIn,
-  isOwner,
-  validateSchema,
-  wrapAsync(listingController.renderEditForm)
-);
+  .route("/:id")
+  .get(wrapAsync(listingController.showListing))
+  .put(
+    isLoggedIn,
+    isOwner,
+    upload.single("listing[image]"),
+    validateSchema,
+    wrapAsync(listingController.updateListing)
+  )
+  .delete(
+    isLoggedIn,
+    isOwner,
+    wrapAsync(listingController.destroyListing)
+  );
 
 module.exports = router;

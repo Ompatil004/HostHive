@@ -1,5 +1,7 @@
 //for mongoose database required
 const mongoose = require("mongoose");
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 //for create Module or table
 const Listing = require("../models/listing.js");
@@ -23,10 +25,24 @@ async function main() {
 //store the data into the database 
 const initDB = async () => {
   await Listing.deleteMany({});
-  initData.data=initData.data.map((obj=>({
+  const categories = [
+    "trending",
+    "rooms",
+    "iconic cities",
+    "castle",
+    "mountain views",
+    "camping",
+    "amazing nature",
+    "farms",
+    "arctic",
+    "boats",
+    "domes"
+  ];
+  initData.data = initData.data.map((obj) => ({
     ...obj,
-    owner:"65faaae8d351653782e5a739",
-  })));
+    owner: "65faaae8d351653782e5a739",
+    category: categories[Math.floor(Math.random() * categories.length)]
+  }));
   await Listing.insertMany(initData.data);
   console.log("data was initialized");
 };
