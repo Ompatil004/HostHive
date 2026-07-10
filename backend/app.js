@@ -12,6 +12,7 @@ process.on("uncaughtException", (err) => {
 
 const express = require("express");
 const app = express();
+app.set("trust proxy", 1); // Trust first proxy (critical for secure cookies on Render/Heroku)
 const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
