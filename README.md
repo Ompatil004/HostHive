@@ -3,7 +3,7 @@
 HostHive is a modern, fully-decoupled, Airbnb-like full-stack web application. It features a static, highly responsive client-side interface communicating with a Node.js/Express JSON REST API backend, utilizing MongoDB for data storage.
 
 ### 🌐 Live Deployment
-*   **Frontend**: [https://host-hive-h18yn03ex-ompatil197.vercel.app/](https://host-hive-h18yn03ex-ompatil197.vercel.app/)
+*   **Frontend**: [https://host-hive-km5i7i7nm-ompatil197.vercel.app/](https://host-hive-km5i7i7nm-ompatil197.vercel.app/)
 *   **Backend API**: [https://host-hive-wghj.onrender.com/api/listings](https://host-hive-wghj.onrender.com/api/listings)
 
 ---
