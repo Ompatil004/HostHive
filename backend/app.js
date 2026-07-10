@@ -36,7 +36,17 @@ const dbUrl = process.env.ATLASDB_URL;
 
 // CORS configuration
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:5000", "http://127.0.0.1:5500", "http://localhost:5500"],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, postman) or matching patterns
+    if (!origin || 
+        origin.startsWith("http://localhost") || 
+        origin.startsWith("http://127.0.0.1") || 
+        origin.endsWith("vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 
