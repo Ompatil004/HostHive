@@ -65,6 +65,8 @@ store.on("error", (err) => {
   console.log("Error in Mongo SESSION STORE", err);
 });
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const sessionOption = {
   store,
   secret: process.env.SECRET,
@@ -74,8 +76,8 @@ const sessionOption = {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "lax", // Safe defaults for cross-origin session storage on local machine
-    secure: false    // localhost is not HTTPS
+    sameSite: isProduction ? "none" : "lax", // Must be "none" for cross-site cookies in production
+    secure: isProduction                     // Must be true (HTTPS only) when sameSite is "none"
   },
 };
 
